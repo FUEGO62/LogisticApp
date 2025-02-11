@@ -1,9 +1,12 @@
 package africa.semicolon.Diary.data.models;
 
+import java.util.ArrayList;
+
 public class Diary {
 
     private String userName;
     private String password;
+    private ArrayList<Entry> entries;
 
     public String getPassword() {
         return password;

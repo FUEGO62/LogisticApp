@@ -23,6 +23,7 @@ public class EntryServiceImpl implements EntryService {
 
     @Override
     public void updateEntry(String title, String body) {
+
         entryRepository.update(title, body);
     }
 

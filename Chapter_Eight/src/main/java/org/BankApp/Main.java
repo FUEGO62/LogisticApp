@@ -56,7 +56,7 @@ public class Main {
             case 4: transfer(); break;
             case 5: checkBalance(); break;
             case 6: changePin(); break;
-            case 7: transfer(); break;
+            case 7: transferToBank(); break;
             case 8: System.exit(0); break;
             default: display("Invalid choice");
 
@@ -138,6 +138,8 @@ public class Main {
 
     public static void transferToBank() {
 
+        createRandomAccounts();
+
         String sender = input("Enter your account number");
         String bankName = input("Enter bank name");
         String recipient = input("Enter recipients account number");
@@ -155,8 +157,6 @@ public class Main {
             mainMenu();
         }
     }
-
-
 
     public static void changePin() {
         try {
@@ -177,5 +177,6 @@ public class Main {
         bank2.createAccount("name","name","pincode");
         bank2.createAccount("name","name","pincode");
         bank2.createAccount("name","name","pincode");
+        
     }
 }

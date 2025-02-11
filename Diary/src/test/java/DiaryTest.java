@@ -28,7 +28,7 @@ public class DiaryTest {
     @Test
     public void test_That_Register_Function_Throws_Exception_With_Invalid_Username(){
         DiaryServiceImpl diaryService = new DiaryServiceImpl();
-        assertThrows(IllegalArgumentException.class, ()->diaryService.register("","pssword"));
+        assertThrows(IllegalArgumentException.class, ()->diaryService.register("","password"));
         assertThrows(IllegalArgumentException.class, ()->diaryService.register(" ","password"));
     }
 
@@ -77,7 +77,8 @@ public class DiaryTest {
         diaryService.register("jesse","password");
         diaryService.register("fuego","password");
         diaryService.deleteDiaryByUsername("jesse");
-        assertEquals(null,diaryService.findDiaryByUsername("jesse"));
+        assertThrows(IllegalArgumentException.class, ()->diaryService.findDiaryByUsername("jesse"));
+        assertEquals(1,diaryService.getNumberOfDiaries());
     }
 
     @Test
@@ -85,4 +86,5 @@ public class DiaryTest {
         DiaryServiceImpl diaryService = new DiaryServiceImpl();
         assertThrows(IllegalArgumentException.class, ()->diaryService.deleteDiaryByUsername(""));
     }
+
 }

@@ -17,43 +17,43 @@ public class EntryRepositoryImpl implements EntryRepository {
     public void delete(String title) {
 
         boolean found = false;
-        int i = 0;
-        for(i = 0; i < entries.size(); i++) {
-            if(title.equals(entries.get(i).getTitle())){
+        int index = 0;
+        for(index = 0; index < entries.size(); index++) {
+            if(title.equals(entries.get(index).getTitle())){
                 found = true;
                 break;
             }
         }
-        if(found)entries.remove(i);
+        if(found)entries.remove(index);
     }
 
     @Override
     public void update(String title, String body) {
         boolean found = false;
-        int i = 0;
-        for(i = 0; i < entries.size(); i++) {
-            if(title.equals(entries.get(i).getTitle())){
+        int index = 0;
+        for(index = 0; index < entries.size(); index++) {
+            if(title.equals(entries.get(index).getTitle())){
                 found = true;
                 break;
             }
         }
         if(found){
-            entries.get(i).setTitle(title);
-            entries.get(i).setBody(body);
+            entries.get(index).setTitle(title);
+            entries.get(index).setBody(body);
         }
     }
 
     @Override
     public Entry findByTitle(String title) {
         boolean found = false;
-        int i = 0;
-        for(i = 0; i < entries.size(); i++) {
-            if(title.equals(entries.get(i).getTitle())){
+        int index = 0;
+        for(index = 0; index < entries.size(); index++) {
+            if(title.equals(entries.get(index).getTitle())){
                 found = true;
                 break;
             }
         }
-        if(found)return entries.get(i);
+        if(found)return entries.get(index);
         else return null;
     }
 }

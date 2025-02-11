@@ -7,9 +7,9 @@ public interface DiaryService {
     long getNumberOfDiaries();
     Diary findDiaryByUsername(String username);
     void deleteDiaryByUsername(String username);
-    void createEntry(String title, String body);
-    void updateEntry(String title, String body);
-    void deleteEntry(String title);
-    String readEntry(String title);
+    void createEntry(String diaryName,String title, String body);
+    void updateEntry(String diaryName,String title, String body);
+    void deleteEntry(String diaryName,String title);
+    String readEntry(String diaryName,String title);
 
 }

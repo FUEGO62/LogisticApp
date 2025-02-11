@@ -75,6 +75,7 @@ public class Bank {
        }
 
       return String.format("%s%d", accountNumber,  counter);
+
     }
 
     private Account findAccountByNumber(String accountNumber) {

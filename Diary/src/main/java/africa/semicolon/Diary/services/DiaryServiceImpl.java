@@ -12,7 +12,7 @@ public class DiaryServiceImpl implements DiaryService {
     @Override
     public void register(String username, String password) {
 
-        Diary diaries = findDiaryByUsername(username);
+        Diary diaries = diaryRepository.findByUsername(username);
         if (diaries != null) {
             throw new IllegalArgumentException("Username " + username + " is already in use");
         }
@@ -53,26 +53,44 @@ public class DiaryServiceImpl implements DiaryService {
     @Override
     public void deleteDiaryByUsername(String username) {
 
+        if (username.equals("") || username == null) {
+            throw new IllegalArgumentException("Username cannot be empty");
+        }
         diaryRepository.delete(username);
     }
 
     @Override
-    public void createEntry(String title, String body) {
-        entryService.createEntry(title, body);
+    public void createEntry(String diaryName, String title, String body) {
+
+        if (diaryName.isEmpty() || diaryName == null) {
+            throw new IllegalArgumentException("diary name cannot be empty");
+        }
+
+        if (title == null || title.isEmpty()) {
+            throw new IllegalArgumentException("title cannot be empty");
+        }
+        if (body == null || body.isEmpty()) {
+            throw new IllegalArgumentException("body cannot be empty");
+        }
+
+        findDiaryByUsername(diaryName);
+
     }
 
     @Override
-    public void updateEntry(String title, String body) {
-        entryService.updateEntry(title, body);
+    public void updateEntry(String diaryName, String title, String body) {
+
     }
 
     @Override
-    public void deleteEntry(String title) {
-        entryService.deleteEntry(title);
+    public void deleteEntry(String diaryName, String title) {
+
     }
 
     @Override
-    public String readEntry(String title) {
-        return entryService.readEntry(title);
+    public String readEntry(String diaryName, String title) {
+        return "";
     }
+
+
 }

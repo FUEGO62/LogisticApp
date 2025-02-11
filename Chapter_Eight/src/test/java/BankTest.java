@@ -11,7 +11,7 @@ public class BankTest {
     public void testThatBankCanCreateAccountAndReturnAcctNumber() {
         Bank bank = new Bank("Guarantee trust");
         String acctNo = bank.createAccount("firstName","lastName","correctPin");
-        assertEquals(acctNo, "10001");
+        assertEquals(acctNo, "71117971");
         assertEquals(1,bank.getNumberOfAccounts());
     }
 

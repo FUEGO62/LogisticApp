@@ -1,6 +1,7 @@
 package africa.semicolon.Diary.data.repositories;
 
 import africa.semicolon.Diary.data.models.Diary;
+import africa.semicolon.Diary.data.models.Entry;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,6 +9,7 @@ import java.util.List;
 public class DiaryRepositoryImpl implements DiaryRepository {
 
     List<Diary> diaries = new ArrayList<Diary>();
+    private EntryRepositoryImpl entryRepository = new EntryRepositoryImpl();
 
 
     @Override
@@ -18,14 +20,14 @@ public class DiaryRepositoryImpl implements DiaryRepository {
     @Override
     public Diary findByUsername(String username) {
         boolean found = false;
-        int i = 0;
-        for(i = 0; i < diaries.size(); i++) {
-            if(username.equals(diaries.get(i).getUserName())){
+        int index = 0;
+        for(index = 0; index < diaries.size(); index++) {
+            if(username.equals(diaries.get(index).getUserName())){
                 found = true;
                 break;
             }
         }
-        if(found)return diaries.get(i);
+        if(found)return diaries.get(index);
         else return null;
     }
 
@@ -48,13 +50,21 @@ public class DiaryRepositoryImpl implements DiaryRepository {
     @Override
     public void delete(String username) {
         boolean found = false;
-        int i = 0;
-        for(i = 0; i < diaries.size(); i++) {
-            if(username.equals( diaries.get(i).getUserName())){
+        int index = 0;
+        for(index = 0; index < diaries.size(); index++) {
+            if(username.equals( diaries.get(index).getUserName())){
                 found = true;
                 break;
             }
         }
-         if(found)diaries.remove(i);
+         if(found)diaries.remove(index);
+    }
+
+    @Override
+    public void createEntry(String title, String body) {
+        Entry entry = new Entry();
+        entry.setTitle(title);
+        entry.setBody(body);
+        entryRepository.save(entry);
     }
 }

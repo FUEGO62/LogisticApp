@@ -11,4 +11,5 @@ public interface DiaryRepository {
     List<Diary> findAll();
     void delete(Diary diary);
     void delete(String username);
+    void createEntry(String title , String body);
 }
