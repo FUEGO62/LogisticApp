@@ -9,14 +9,6 @@ public class TrackingInfo {
     private String info;
     private LocalDateTime time;
 
-    public TrackingInfo( int itemId, String info,int year, int month, int day , int hour, int minute, int second ) {
-
-        this.itemId = itemId;
-        this.info = info;
-        this.time = LocalDateTime.of(year, month, day, hour, minute, second);
-
-    }
-
 
     public LocalDateTime getTime() {
         return time;
@@ -49,6 +41,11 @@ public class TrackingInfo {
 
     public void setTrackingInfoId(int id) {
         this.id = id;
+    }
+
+    @Override
+    public String toString() {
+        return String.format("%s for package: %d%n",info,itemId);
     }
 
 }

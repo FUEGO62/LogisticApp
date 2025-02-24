@@ -4,7 +4,7 @@ import data.models.TrackingInfo;
 
 import java.util.ArrayList;
 
-public class TrackingInfos {
+public class TrackingInfos implements TrackingInfoRepository {
 
     private ArrayList<TrackingInfo> trackingInfos = new ArrayList<>();
     private int count;
@@ -40,7 +40,7 @@ public class TrackingInfos {
     }
 
 
-    public void delete(int id) {
+    public void deleteById(int id) {
         TrackingInfo deletedTrackingInfo = findById(id);
         if(deletedTrackingInfo == null){
             throw new IllegalArgumentException("TrackingInfo not found");
@@ -52,7 +52,7 @@ public class TrackingInfos {
 
         for(TrackingInfo trackingInfo : trackingInfos){
             if(existsById(trackingInfo.getTrackingInfoId())){
-                delete(trackingInfo.getTrackingInfoId());
+                deleteById(trackingInfo.getTrackingInfoId());
             }
             else {
                 throw new IllegalArgumentException("TrackingInfo not found");
@@ -67,7 +67,7 @@ public class TrackingInfos {
     public void deleteAllById(int ... ids) {
         for(int id : ids){
             if(existsById(id)){
-                delete(id);
+                deleteById(id);
             }
             else {
                 throw new IllegalArgumentException("TrackingInfo not found");
@@ -76,8 +76,8 @@ public class TrackingInfos {
     }
 
     private void update(TrackingInfo trackingInfo) {
-        TrackingInfo original = findById(trackingInfo.getTrackingInfoId());
-        original = trackingInfo;
+        deleteById(trackingInfo.getTrackingInfoId());
+        trackingInfos.add(trackingInfo);
     }
 
     private void generateId(TrackingInfo trackingInfo) {
@@ -94,6 +94,7 @@ public class TrackingInfos {
         return null;
     }
 
+
     public ArrayList<TrackingInfo> findAllById(int ... ids) {
         ArrayList<TrackingInfo> foundTrackingInfo = new ArrayList<>();
         for (int id : ids) {
@@ -103,4 +104,14 @@ public class TrackingInfos {
 
     }
 
+    public ArrayList<TrackingInfo> findAllByItemId(int id) {
+        ArrayList<TrackingInfo> foundTrackingInfo = new ArrayList<>();
+        for (TrackingInfo trackingInfo : trackingInfos) {
+            if(trackingInfo.getItemId() == id){
+                foundTrackingInfo.add(trackingInfo);
+            }
+        }
+        return foundTrackingInfo;
+
+    }
 }

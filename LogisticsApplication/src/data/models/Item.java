@@ -6,12 +6,16 @@ public class Item {
     private String description;
     private int weightInGrams;
     private int itemId;
+
 //    private Receiver receiver;
 //    private Sender sender;
 
-    public Item(String name, String description, int weightInGrams) {
-        this.name = name;
+
+    public void setDescription(String description) {
         this.description = description;
+    }
+
+    public void setWeightInGrams(int weightInGrams) {
         this.weightInGrams = weightInGrams;
     }
 

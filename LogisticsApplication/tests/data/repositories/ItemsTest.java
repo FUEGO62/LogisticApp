@@ -9,6 +9,12 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class ItemsTest {
 
+    public void setValues(Item item) {
+        item.setName("name");
+        item.setDescription("description");
+        item.setWeightInGrams(500);
+    }
+
     @Test
     void testThatNewItemRepositoryIsEmpty() {
         Items items = new Items();
@@ -19,7 +25,8 @@ class ItemsTest {
     @Test
     void testThatNewItemRepositoryCanSaveItems() {
         Items items = new Items();
-        Item item = new Item("rice","food",2300);
+        Item item = new Item();
+        setValues(item);
         Item saved  = items.save(item);
         long numberOfItems = items.count();
         assertEquals(1, numberOfItems);
@@ -37,8 +44,10 @@ class ItemsTest {
     @Test
     public void testThatNewItemRepositoryCanSaveMultipleItems(){
         Items items = new Items();
-        Item item1 = new Item("rice","food",2300);
-        Item item2 = new Item("rice","food",2300);
+        Item item1 = new Item();
+        Item item2 = new Item();
+        setValues(item1);
+        setValues(item2);
         items.saveAll(item1, item2);
         long numberOfItems = items.count();
         assertEquals(2, numberOfItems);
@@ -48,7 +57,8 @@ class ItemsTest {
     @Test
     public void testThatNewItemRepositoryCanFindItemById() {
         Items items = new Items();
-        Item item = new Item("rice","food",2300);
+        Item item = new Item();
+        setValues(item);
         items.save(item);
         Item foundItem = items.findById(item.getItemId());
         assertEquals(item, foundItem);
@@ -57,9 +67,10 @@ class ItemsTest {
     @Test
     public void testThatNewItemRepositoryCanDeleteItem() {
         Items items = new Items();
-        Item item = new Item("rice","food",2300);
+        Item item = new Item();
+        setValues(item);
         items.save(item);
-        items.delete(item.getItemId());
+        items.deleteById(item.getItemId());
         long numberOfItems = items.count();
         assertEquals(0, numberOfItems);
     }
@@ -67,8 +78,10 @@ class ItemsTest {
     @Test
     public void testThatNewItemRepositoryCanDeleteAllItems() {
         Items items = new Items();
-        Item item1 = new Item("rice","food",2300);
-        Item item2 = new Item("rice","food",2300);
+        Item item1 = new Item();
+        Item item2 = new Item();
+        setValues(item1);
+        setValues(item2);
 
         items.save(item1);
         items.save(item2);
@@ -79,7 +92,8 @@ class ItemsTest {
     @Test
     public void testThatNewItemRepositoryCanUpdateItem() {
         Items items = new Items();
-        Item item = new Item("rice","food",2300);
+        Item item = new Item();
+        setValues(item);
         items.save(item);
         item.setName("New name");
         items.save(item);
@@ -90,8 +104,10 @@ class ItemsTest {
     @Test
     public void testThatNewItemRepositoryCanDeleteMultipleItems() {
         Items items = new Items();
-        Item item1 = new Item("rice","food",2300);
-        Item item2 = new Item("fish","food",2300);
+        Item item1 = new Item();
+        Item item2 = new Item();
+        setValues(item1);
+        setValues(item2);
         items.save(item1);
         items.save(item2);
 
@@ -104,8 +120,10 @@ class ItemsTest {
     @Test
     public void testThatNewItemRepositoryCanDeleteMultipleItemsById() {
         Items items = new Items();
-        Item item1 = new Item("rice","food",2300);
-        Item item2 = new Item("fish","food",2300);
+        Item item1 = new Item();
+        Item item2 = new Item();
+        setValues(item1);
+        setValues(item2);
         items.save(item1);
         items.save(item2);
 
@@ -118,16 +136,19 @@ class ItemsTest {
     @Test
     public void testThatDeleteThrowsExceptionWithInvalidNames() {
         Items items = new Items();
-        Item item1 = new Item("rice","food",2300);
+        Item item1 = new Item();
+        setValues(item1);
         items.save(item1);
-        assertThrows(IllegalArgumentException.class, () -> items.delete(214580));
+        assertThrows(IllegalArgumentException.class, () -> items.deleteById(214580));
     }
 
     @Test
     public void testThatNewItemRepositoryCanFindItemAllItemById() {
         Items items = new Items();
-        Item item1 = new Item("rice","food",2300);
-        Item item2 = new Item("fish","food",2300);
+        Item item1 = new Item();
+        Item item2 = new Item();
+        setValues(item1);
+        setValues(item2);
         items.save(item1);
         items.save(item2);
         ArrayList<Item> foundItems = items.findAllById(item1.getItemId(),item2.getItemId());

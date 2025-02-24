@@ -7,7 +7,16 @@ import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class TrackingInfosTest {
+public class TrackingInfosTest {
+
+    public void setValues( TrackingInfo trackingInfo ) {
+
+        trackingInfo.setItemId(1);
+        trackingInfo.setInfo("info");
+        trackingInfo.setTime(2025,2,13,4,33,12);
+
+    }
+
     @Test
     public void testThatNewTrackingInfoRepositoryIsEmpty() {
         TrackingInfos trackingInfos = new TrackingInfos();
@@ -18,7 +27,8 @@ class TrackingInfosTest {
     @Test
     public void testThatNewTrackingInfoRepositoryCanSaveTrackingInfos() {
         TrackingInfos trackingInfos = new TrackingInfos();
-        TrackingInfo trackingInfo = new TrackingInfo(1,"product",2025,2,11,13,1,0);
+        TrackingInfo trackingInfo = new TrackingInfo();
+        setValues(trackingInfo);
         TrackingInfo saved  = trackingInfos.save(trackingInfo);
         long numberOfTrackingInfos = trackingInfos.count();
         assertEquals(1, numberOfTrackingInfos);
@@ -35,8 +45,10 @@ class TrackingInfosTest {
     @Test
     public void testThatNewTrackingInfoRepositoryCanSaveMultipleTrackingInfos(){
         TrackingInfos trackingInfos = new TrackingInfos();
-        TrackingInfo trackingInfo1 = new TrackingInfo(1,"product",2025,2,11,13,1,0);
-        TrackingInfo trackingInfo2 = new TrackingInfo(1,"product",2025,2,11,13,1,0);
+        TrackingInfo trackingInfo1 = new TrackingInfo();
+        setValues(trackingInfo1);
+        TrackingInfo trackingInfo2 = new TrackingInfo();
+        setValues(trackingInfo2);
         trackingInfos.saveAll(trackingInfo1, trackingInfo2);
         long numberOfTrackingInfos = trackingInfos.count();
         assertEquals(2, numberOfTrackingInfos);
@@ -46,7 +58,8 @@ class TrackingInfosTest {
     @Test
     public void testThatNewTrackingInfoRepositoryCanFindTrackingInfoById() {
         TrackingInfos trackingInfos = new TrackingInfos();
-        TrackingInfo trackingInfo = new TrackingInfo(1,"product",2025,2,11,13,1,0);
+        TrackingInfo trackingInfo = new TrackingInfo();
+        setValues(trackingInfo);
         trackingInfos.save(trackingInfo);
         TrackingInfo foundTrackingInfo = trackingInfos.findById(trackingInfo.getTrackingInfoId());
         assertEquals(trackingInfo, foundTrackingInfo);
@@ -55,9 +68,10 @@ class TrackingInfosTest {
     @Test
     public void testThatNewTrackingInfoRepositoryCanDeleteTrackingInfo() {
         TrackingInfos trackingInfos = new TrackingInfos();
-        TrackingInfo trackingInfo = new TrackingInfo(1,"product",2025,2,11,13,1,0);
+        TrackingInfo trackingInfo = new TrackingInfo();
+        setValues(trackingInfo);
         trackingInfos.save(trackingInfo);
-        trackingInfos.delete(trackingInfo.getTrackingInfoId());
+        trackingInfos.deleteById(trackingInfo.getTrackingInfoId());
         long numberOfTrackingInfos = trackingInfos.count();
         assertEquals(0, numberOfTrackingInfos);
     }
@@ -65,16 +79,19 @@ class TrackingInfosTest {
     @Test
     public void testThatDeleteThrowsExceptionWithInvalidId(){
         TrackingInfos trackingInfos = new TrackingInfos();
-        TrackingInfo trackingInfo = new TrackingInfo(1,"product",2025,2,11,13,1,0);
+        TrackingInfo trackingInfo = new TrackingInfo();
+        setValues(trackingInfo);
         trackingInfos.save(trackingInfo);
-        assertThrows(IllegalArgumentException.class, ()->trackingInfos.delete(-1));
+        assertThrows(IllegalArgumentException.class, ()->trackingInfos.deleteById(-1));
     }
 
     @Test
     public void testThatNewTrackingInfoRepositoryCanDeleteAllTrackingInfos() {
         TrackingInfos trackingInfos = new TrackingInfos();
-        TrackingInfo trackingInfo1 = new TrackingInfo(1,"product",2025,2,11,13,1,0);
-        TrackingInfo trackingInfo2 = new TrackingInfo(1,"product",2025,2,11,13,1,0);
+        TrackingInfo trackingInfo1 = new TrackingInfo();
+        TrackingInfo trackingInfo2 = new TrackingInfo();
+        setValues(trackingInfo1);
+        setValues(trackingInfo2);
 
         trackingInfos.save(trackingInfo1);
         trackingInfos.save(trackingInfo2);
@@ -85,19 +102,23 @@ class TrackingInfosTest {
     @Test
     public void testThatNewTrackingInfoRepositoryCanUpdateTrackingInfo() {
         TrackingInfos trackingInfos = new TrackingInfos();
-        TrackingInfo trackingInfo = new TrackingInfo(1,"product",2025,2,11,13,1,0);
+        TrackingInfo trackingInfo = new TrackingInfo();
+        setValues(trackingInfo);
         trackingInfos.save(trackingInfo);
         trackingInfo.setInfo("New name");
         trackingInfos.save(trackingInfo);
         long numberOfTrackingInfos = trackingInfos.count();
         assertEquals(1, numberOfTrackingInfos);
+        assertEquals("New name", trackingInfo.getInfo());
     }
 
     @Test
     public void testThatNewTrackingInfoRepositoryCanDeleteMultipleTrackingInfos() {
         TrackingInfos trackingInfos = new TrackingInfos();
-        TrackingInfo trackingInfo1 = new TrackingInfo(1,"product",2025,2,11,13,1,0);
-        TrackingInfo trackingInfo2 = new TrackingInfo(1,"product",2025,2,11,13,1,0);
+        TrackingInfo trackingInfo1 = new TrackingInfo();
+        TrackingInfo trackingInfo2 = new TrackingInfo();
+        setValues(trackingInfo1);
+        setValues(trackingInfo2);
         trackingInfos.save(trackingInfo1);
         trackingInfos.save(trackingInfo2);
 
@@ -110,8 +131,10 @@ class TrackingInfosTest {
     @Test
     public void testThatNewTrackingInfoRepositoryCanDeleteMultipleTrackingInfosById() {
         TrackingInfos trackingInfos = new TrackingInfos();
-        TrackingInfo trackingInfo1 = new TrackingInfo(1,"product",2025,2,11,13,1,0);
-        TrackingInfo trackingInfo2 = new TrackingInfo(1,"product",2025,2,11,13,1,0);
+        TrackingInfo trackingInfo1 = new TrackingInfo();
+        TrackingInfo trackingInfo2 = new TrackingInfo();
+        setValues(trackingInfo1);
+        setValues(trackingInfo2);
         trackingInfos.save(trackingInfo1);
         trackingInfos.save(trackingInfo2);
 
@@ -124,8 +147,10 @@ class TrackingInfosTest {
     @Test
     public void testThatNewTrackingInfoRepositoryCanFindTrackingInfoAllTrackingInfoById() {
         TrackingInfos trackingInfos = new TrackingInfos();
-        TrackingInfo trackingInfo1 = new TrackingInfo(1,"product",2025,2,11,13,1,0);
-        TrackingInfo trackingInfo2 = new TrackingInfo(1,"product",2025,2,11,13,1,0);
+        TrackingInfo trackingInfo1 = new TrackingInfo();
+        TrackingInfo trackingInfo2 = new TrackingInfo();
+        setValues(trackingInfo1);
+        setValues(trackingInfo2);
         trackingInfos.save(trackingInfo1);
         trackingInfos.save(trackingInfo2);
         ArrayList<TrackingInfo> foundTrackingInfos = trackingInfos.findAllById(trackingInfo1.getTrackingInfoId(),trackingInfo2.getTrackingInfoId());

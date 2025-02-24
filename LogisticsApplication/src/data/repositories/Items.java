@@ -5,14 +5,14 @@ import data.models.Item;
 import java.util.ArrayList;
 
 
-public class Items {
+public class Items implements ItemRepository{
 
     private ArrayList<Item> items = new ArrayList<>();
     private int count;
 
     public Item save(Item item) {
 
-        if(item == null) {throw new IllegalArgumentException("cannot save a null item");}
+        if(item == null) throw new IllegalArgumentException("cannot save a null item");
 
         if(existsById(item.getItemId())){
             update(item);
@@ -41,7 +41,7 @@ public class Items {
     }
 
 
-    public void delete(int id) {
+    public void deleteById(int id) {
         Item deletedItem = findById(id);
         if(deletedItem == null){
             throw new IllegalArgumentException("Item not found");
@@ -53,7 +53,7 @@ public class Items {
 
         for(Item item : items){
             if(existsById(item.getItemId())){
-                delete(item.getItemId());
+                deleteById(item.getItemId());
             }
             else {
                 throw new IllegalArgumentException("Item not found");
@@ -68,7 +68,7 @@ public class Items {
     public void deleteAllById(int ... ids) {
         for(int id : ids){
             if(existsById(id)){
-                delete(id);
+                deleteById(id);
             }
             else {
                 throw new IllegalArgumentException("Item not found");
@@ -77,8 +77,8 @@ public class Items {
     }
 
     private void update(Item item) {
-        Item original = findById(item.getItemId());
-        original = item;
+        deleteById(item.getItemId());
+        items.add(item);
     }
 
     private void generateId(Item item) {
@@ -103,6 +103,4 @@ public class Items {
         return foundItem;
 
     }
-
-
 }
